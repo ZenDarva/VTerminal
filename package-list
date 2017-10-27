@@ -5,3 +5,5 @@ com.valkryst.VTerminal.component
 com.valkryst.VTerminal.font
 com.valkryst.VTerminal.misc
 com.valkryst.VTerminal.printer
+com.valkryst.VTerminal.shader
+com.valkryst.VTerminal.shader.blur
