@@ -7,3 +7,5 @@ com.valkryst.VTerminal.misc
 com.valkryst.VTerminal.printer
 com.valkryst.VTerminal.shader
 com.valkryst.VTerminal.shader.blur
+com.valkryst.VTerminal.shader.character
+com.valkryst.VTerminal.shader.misc
