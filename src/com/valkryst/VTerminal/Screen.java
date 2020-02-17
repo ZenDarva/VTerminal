@@ -176,7 +176,7 @@ public class Screen {
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(final WindowEvent e) {
                 frame.dispose();
-                System.exit(0);
+                //System.exit(0);
             }
         });
         frame.setBackground(colorPalette.getDefaultBackground());
@@ -322,7 +322,7 @@ public class Screen {
             public void windowClosing(final WindowEvent e) {
                 device.setFullScreenWindow(null);
                 frame.dispose();
-                System.exit(0);
+//                System.exit(0);
             }
         });
         frame.addKeyListener(new KeyListener() {
@@ -335,7 +335,7 @@ public class Screen {
                 if(keyStroke != null && keyEvent.getKeyCode() == KeyEvent.VK_F4){
                     device.setFullScreenWindow(null);
                     frame.dispose();
-                    System.exit(0);
+//                    System.exit(0);
                 }
             }
 
@@ -510,8 +510,12 @@ public class Screen {
                     }
                 }
             } while (bs.contentsRestored()); // Repeat render if drawing buffer contents were restored.
-
-            bs.show();
+            try{
+                bs.show();
+            }
+            catch (IllegalStateException e){
+                return;
+            }
         } while (bs.contentsLost()); // Repeat render if drawing buffer was lost.
 
         hasFirstRenderCompleted = true;
