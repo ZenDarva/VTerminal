@@ -5,15 +5,15 @@ import com.valkryst.VTerminal.palette2.interfaces.Palette;
 import java.awt.*;
 
 public interface Java2DButton extends Java2DPalette {
-    void setBackgroundHover(final int rgba);
+    void setBackgroundHover(Color color);
     Color getBackgroundHover();
 
-    void setForegroundHover(final int rgba);
+    void setForegroundHover(Color color);
     Color getForegroundHover();
 
-    void setBackgroundPressed(final int rgba);
+    void setBackgroundPressed(Color color);
     Color getBackgroundPressed();
 
-    void setForegroundPressed(final int rgba);
+    void setForegroundPressed(Color color);
     Color getForegroundPressed();
 }

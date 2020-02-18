@@ -31,6 +31,12 @@ public class RawTileColor{
                 color = ColorFunctions.tint(color,Tint);
             return color;
         }
+        public void fromAWTColor(Color color){
+            RGBA[0]=color.getRed();
+            RGBA[1]=color.getGreen();
+            RGBA[2]=color.getBlue();
+            RGBA[3]=color.getAlpha();
+        }
     }
 
 }

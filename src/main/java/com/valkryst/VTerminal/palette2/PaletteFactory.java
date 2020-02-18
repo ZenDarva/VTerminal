@@ -21,13 +21,14 @@ import java.util.Map;
 
 public class PaletteFactory {
 
+
     public static Palette getPallate(Class<? extends Palette> clazz, String name){
         Map<String, Map<String,RawTileColor>> backingStore;
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
 
-        File file = new File("C:\\Users\\James\\Documents\\VTerminal\\src\\main\\resources\\Palettes\\PaleNight.json");
+        File file = new File("src/main/resources/Palettes/PaleNight.json");
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(file);
@@ -38,10 +39,9 @@ public class PaletteFactory {
         JsonReader reader = new JsonReader(isr);
         Type type = new TypeToken<Map<String, Map<String, RawTileColor>>>(){}.getType();
         backingStore = gson.fromJson(isr, type);
-        System.out.println("Noop");
 
         PaletteProxy proxy = instantiateProxy(clazz);
-        proxy.setBackingStore(backingStore.get(getType(clazz)));
+        proxy.setBackingStore(cloneBackingStore(backingStore.get(getType(clazz))));
 
         Palette paletteProxy = (Palette) Proxy.newProxyInstance(clazz.getClassLoader(),getInterfaces(clazz),proxy);
 
@@ -94,5 +94,13 @@ public class PaletteFactory {
         }
         String prefix = (String) method.invoke(null);
         return clazz.getSimpleName().replace(prefix,"");
+    }
+
+    private static Map<String, RawTileColor> cloneBackingStore(Map<String, RawTileColor> targ){
+        Type type = new TypeToken<Map<String, RawTileColor>>(){}.getType();
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        return gson.fromJson(gson.toJson(targ),type);
     }
 }

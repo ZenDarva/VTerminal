@@ -12,8 +12,21 @@ public class PaletteTest {
 
     private static void testFactory(){
         Java2DButton btn = (Java2DButton) PaletteFactory.getPallate(Java2DButton.class, "PaleNight");
-        System.out.println("Nop");
-        Color color = btn.getBackgroundHover();
-        System.out.println(color);
+
+        Color backgroundHover = btn.getBackgroundHover();
+        if (backgroundHover.equals(new Color(176,135,223,255))){
+            System.out.println("BackgroundHover matches.");
+        }
+        Color defaultBackground = btn.getBackground();
+        if (defaultBackground.equals(new Color (41,45,62,255))){
+            System.out.println("DefaultBackground matches.");
+        }
+        btn.getForeground();
+
+        btn.setForeground(Color.BLACK);
+        if (btn.getForeground().equals(Color.BLACK)){
+            System.out.println("Successfully set ForegroundHover");
+        }
     }
 }
+
