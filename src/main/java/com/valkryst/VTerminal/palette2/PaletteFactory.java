@@ -29,6 +29,9 @@ public class PaletteFactory {
      *          to provide Palette data.
      */
     //This method is still heavily in process.
+    //In theory, i would like to keep a hashmap here of <String,Map<String,Map<String,RawTileColor>>>, with each .json
+    //we've processed saved in it, so we can simply return the cached backingStore.  However,
+    //<String,Map<String,Map<String,RawTileColor>>> just looks -really- ugly.
     public static Palette getPallate(Class<? extends Palette> clazz, String name){
         Map<String, Map<String,RawTileColor>> backingStore;
         GsonBuilder builder = new GsonBuilder();
@@ -95,6 +98,7 @@ public class PaletteFactory {
         interfaces[targ.getInterfaces().length]=targ;
         return interfaces;
     }
+
     //This method simply snips off the prefix from the class name, so we can use it to index into BackingStore.
     @SneakyThrows
     private static String getType(Class<? extends Palette> clazz){
