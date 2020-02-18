@@ -50,7 +50,7 @@
     }
   },
 
-  "Radio Button": {
+  "RadioButton": {
     "Default": {
       "Background": {
         "RGBA": [41, 45, 62, 255]
@@ -78,7 +78,7 @@
     }
   },
 
-  "Check Box": {
+  "CheckBox": {
     "Default": {
       "Background": {
         "RGBA": [41, 45, 62, 255]
@@ -130,7 +130,7 @@
     }
   },
 
-  "Progress Bar": {
+  "ProgressBar": {
     "Incomplete": {
       "Background": {
         "RGBA": [41, 45, 62, 255]
@@ -150,7 +150,7 @@
     }
   },
 
-  "Text Area": {
+  "TextArea": {
     "Default": {
       "Background": {
         "RGBA": [41, 45, 62, 255],

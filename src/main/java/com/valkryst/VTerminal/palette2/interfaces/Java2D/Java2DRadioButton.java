@@ -1,10 +1,8 @@
 package com.valkryst.VTerminal.palette2.interfaces.Java2D;
 
-import com.valkryst.VTerminal.palette2.interfaces.Palette;
-
 import java.awt.*;
 
-public interface Java2DButton extends Java2DPalette {
+public interface Java2DRadioButton extends Java2DPalette {
 
     void setBackgroundHover(Color color);
     Color getBackgroundHover();

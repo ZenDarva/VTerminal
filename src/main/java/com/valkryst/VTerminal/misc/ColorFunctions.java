@@ -40,9 +40,9 @@ public final class ColorFunctions {
         int g = color.getGreen();
         int b = color.getBlue();
 
-        r *= (int) (1 - shadeFactor);
-        g *= (int) (1 - shadeFactor);
-        b *= (int) (1 - shadeFactor);
+        r = (int) (r * (1 - shadeFactor));
+        g = (int) (g * (1 - shadeFactor));
+        b = (int) (b * (1 - shadeFactor));
 
         return new Color(r, g, b, a);
     }

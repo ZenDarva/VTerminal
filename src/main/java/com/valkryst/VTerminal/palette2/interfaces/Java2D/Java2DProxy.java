@@ -8,7 +8,11 @@ import java.lang.reflect.Method;
 public class Java2DProxy extends PaletteProxy {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        //Method name will look something like "getForegroundHover", or "setBackgroundPressed"
+        //First, we shave off the get/set, to know which type of method we should emulate.
+
         String methodName = method.getName();
+
         if (methodName.startsWith("get")) {
             String targName = methodName.replace("get","");
             return getValue(targName);
@@ -28,11 +32,11 @@ public class Java2DProxy extends PaletteProxy {
 
         if (targName.contains("Foreground")){
             targName = targName.replace("Foreground","");
-            if (targName.isEmpty()){
+            if (targName.isEmpty()){ //If it's empty, the method called was setForeground, and we'll want to set the default value.
                     backingStore.get("Default").Foreground.fromAWTColor(color);
             }
             else
-                backingStore.get(targName).Foreground.fromAWTColor(color);
+                backingStore.get(targName).Foreground.fromAWTColor(color);  //Set the appropriate value in the backingStore. i.e. Hover, or Pressed.
 
         }
         if (targName.contains("Background")){
@@ -44,7 +48,7 @@ public class Java2DProxy extends PaletteProxy {
                 backingStore.get(targName).Background.fromAWTColor(color);
 
         }
-        return null;
+        return null;//Got to love reflection.  Well, we have to return something.
     }
 
     private Color getValue(String targName) {
