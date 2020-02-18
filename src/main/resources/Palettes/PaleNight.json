@@ -1,11 +1,23 @@
 {
   "Default": {
+  "Default": {
     "Background": {
-      "RGBA": [41, 45, 62, 255]
+      "RGBA": [
+        41,
+        45,
+        62,
+        255
+      ]
     },
     "Foreground": {
-      "RGBA": [92, 104, 146, 255]
+      "RGBA": [
+        92,
+        104,
+        146,
+        255
+      ]
     }
+  }
   },
 
   "Button": {
