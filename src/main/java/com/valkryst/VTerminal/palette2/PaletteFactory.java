@@ -20,8 +20,15 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 public class PaletteFactory {
+//Here's where the fun lives.
 
-
+    /**
+     * @param clazz This is the interface we would like to get a pallete for.
+     * @param name This is currently unused.  In the future, it will be the name of the pallete to load.
+     * @return Returns a proxy, masquerading as the class type you requested, which uses its copy of the backing store
+     *          to provide Palette data.
+     */
+    //This method is still heavily in process.
     public static Palette getPallate(Class<? extends Palette> clazz, String name){
         Map<String, Map<String,RawTileColor>> backingStore;
         GsonBuilder builder = new GsonBuilder();
@@ -39,6 +46,8 @@ public class PaletteFactory {
         JsonReader reader = new JsonReader(isr);
         Type type = new TypeToken<Map<String, Map<String, RawTileColor>>>(){}.getType();
         backingStore = gson.fromJson(isr, type);
+        //Above here, we build the default backing store, by loading PaleNight.json in, and coercing it to the format we
+        //expect.
 
         PaletteProxy proxy = instantiateProxy(clazz);
         proxy.setBackingStore(cloneBackingStore(backingStore.get(getType(clazz))));
@@ -51,8 +60,11 @@ public class PaletteFactory {
     @SneakyThrows
     private static PaletteProxy instantiateProxy(Class<? extends Palette> clazz){
         Method method = null;
+        //This for loop needs some work, it may be possible in theory to wind up with the wrong interface here.
         for (Class<?> anInterface : clazz.getInterfaces()) {
             if (Palette.class.isAssignableFrom(anInterface)){
+                //This is how we find out which invocation handler we would use.  There should be one per category.
+                //I.e.: Java2D, JavaFX, OpenGL... etc.
                 method = anInterface.getMethod("getInvocationHandler",null);
             }
         }
@@ -68,11 +80,13 @@ public class PaletteFactory {
                 targConstructor = constructor;
             }
         }
-        if (targConstructor == null){// || !targConstructor.isAccessible()){
+        if (targConstructor == null){
             throw new IllegalArgumentException("Attempted to instantiate a class that does not have a 0 args constructor.");
         }
         return (PaletteProxy) targConstructor.newInstance();
     }
+
+    //This method is used to assemble the list of interfaces that the Proxy we're generating must adhere to.
     private static Class[] getInterfaces(Class<? extends Palette> targ){
         Class[] interfaces = new Class[targ.getInterfaces().length+1];
         for (int i = 0; i < targ.getInterfaces().length; i++) {
@@ -81,6 +95,7 @@ public class PaletteFactory {
         interfaces[targ.getInterfaces().length]=targ;
         return interfaces;
     }
+    //This method simply snips off the prefix from the class name, so we can use it to index into BackingStore.
     @SneakyThrows
     private static String getType(Class<? extends Palette> clazz){
         Method method = null;
